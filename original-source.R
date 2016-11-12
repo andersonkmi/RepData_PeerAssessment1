@@ -17,3 +17,5 @@ activityDataset$date <- as.Date(activityDataset$date, "%Y-%m-%d")
 ################
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
 plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Date (October to November 2012)", ylab="Frequency", lwd=4, col="blue")
+mean(totalStepsPerDay$x[totalStepsPerDay$x > 0])
+median(totalStepsPerDay$x[totalStepsPerDay$x > 0])
