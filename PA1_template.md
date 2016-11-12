@@ -1,7 +1,5 @@
 # Reproducible Research: Peer Assessment 1
-
-
-## Loading and preprocessing the data
+Loading a few libraries
 
 ```r
 library(plyr)
@@ -61,39 +59,26 @@ library(data.table)
 ##     between, last
 ```
 
+## Loading and preprocessing the data
+Load the **activity.csv** file and convert the dates to Date class
+
 ```r
 activityDataset <- read.csv(file = "activity.csv", header = TRUE, sep = ",")
-head(activityDataset)
-```
-
-```
-##   steps       date interval
-## 1    NA 2012-10-01        0
-## 2    NA 2012-10-01        5
-## 3    NA 2012-10-01       10
-## 4    NA 2012-10-01       15
-## 5    NA 2012-10-01       20
-## 6    NA 2012-10-01       25
-```
-
-```r
-summary(activityDataset)
-```
-
-```
-##      steps                date          interval     
-##  Min.   :  0.00   2012-10-01:  288   Min.   :   0.0  
-##  1st Qu.:  0.00   2012-10-02:  288   1st Qu.: 588.8  
-##  Median :  0.00   2012-10-03:  288   Median :1177.5  
-##  Mean   : 37.38   2012-10-04:  288   Mean   :1177.5  
-##  3rd Qu.: 12.00   2012-10-05:  288   3rd Qu.:1766.2  
-##  Max.   :806.00   2012-10-06:  288   Max.   :2355.0  
-##  NA's   :2304     (Other)   :15840
+activityDataset$date <- as.Date(activityDataset$date, "%Y-%m-%d")
 ```
 
 
 ## What is mean total number of steps taken per day?
+1. Calculate the sum aggregation of steps taken by day, ignoring NAs
+2. Plot the histogram based on the previous aggregation
+3. Calculate and report the mean and median of the total number of steps taken per day
 
+```r
+totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
+plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Date (October to November 2012)", ylab="Frequency", lwd=4, col="blue")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 
 ## What is the average daily activity pattern?
