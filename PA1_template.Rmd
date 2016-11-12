@@ -7,7 +7,15 @@ output:
 
 
 ## Loading and preprocessing the data
-
+```{r, echo = TRUE}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(data.table)
+activityDataset <- read.csv(file = "activity.csv", header = TRUE, sep = ",")
+head(activityDataset)
+summary(activityDataset)
+```
 
 
 ## What is mean total number of steps taken per day?
