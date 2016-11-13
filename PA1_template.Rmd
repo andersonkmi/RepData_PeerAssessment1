@@ -17,7 +17,7 @@ activityDataset$date <- as.Date(activityDataset$date, "%Y-%m-%d")
 ## What is mean total number of steps taken per day?
 1. Calculate the sum aggregation of steps taken by day, ignoring NAs
 2. Plot the histogram based on the previous aggregation
-3. Calculate and report the mean and median of the total number of steps taken per day
+3. Calculate and report the mean and median of the total number of steps taken per day. In this part, I ignore the numbers corresponding to zero (since they represent NA values from the original dateset)
 ```{r, echo=TRUE}
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
 plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Dates (October to November 2012)", ylab="Number of steps", lwd=4, col="green")
