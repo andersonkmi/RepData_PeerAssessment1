@@ -76,4 +76,6 @@ Create the factor levels:
 ```{r, echo=TRUE}
 days <- weekdays(activityDataset$date)
 activityDataset$day_type <- ifelse(days == "Saturday" | days == "Sunday", "weekend", "weekday")
-```
+``avgTotalStepsPerIntervalDayType <- with(activityDataset, aggregate(steps, by = list(interval, day_type), mean))
+
+`
