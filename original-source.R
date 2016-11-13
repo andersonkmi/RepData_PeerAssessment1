@@ -20,3 +20,9 @@ plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab=
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum))
 mean(totalStepsPerDay$x, na.rm=TRUE)
 median(totalStepsPerDay$x, na.rm=TRUE)
+
+#############
+### Part 2
+#############
+str(activityDataset)
+avgTotalStepsPerInterval <- with(activityDataset, aggregate(steps, by = list(interval), mean, na.rm=TRUE))
