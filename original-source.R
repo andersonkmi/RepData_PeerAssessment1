@@ -26,3 +26,4 @@ median(totalStepsPerDay$x, na.rm=TRUE)
 #############
 str(activityDataset)
 avgTotalStepsPerInterval <- with(activityDataset, aggregate(steps, by = list(interval), mean, na.rm=TRUE))
+

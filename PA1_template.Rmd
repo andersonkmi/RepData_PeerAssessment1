@@ -68,3 +68,12 @@ plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab=
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+1. Using weekdays() function, classifies each record either 'weekday' or 'weekend'.
+2. Aggregate the average of steps taken by 5-minute interval and weekday and weekend.
+3. Plot the time series.
+
+Create the factor levels:
+```{r, echo=TRUE}
+days <- weekdays(activityDataset$date)
+
+`activityDataset$day_type <- ifelse(days == 'Saturday' | days == 'Sunday', 'weekend', 'weekday')``
