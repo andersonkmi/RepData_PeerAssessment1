@@ -20,7 +20,7 @@ activityDataset$date <- as.Date(activityDataset$date, "%Y-%m-%d")
 3. Calculate and report the mean and median of the total number of steps taken per day. In this part, the aggregation was reprocessed with NAs so they are discarded inside mean() and median() functions.
 ```{r, echo=TRUE}
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
-plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Dates (October to November 2012)", ylab="Number of steps", lwd=4, col="green")
+plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Dates", ylab="Number of steps", lwd=4, col="green")
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum))
 mean(totalStepsPerDay$x, na.rm=TRUE)
 median(totalStepsPerDay$x, na.rm=TRUE)
@@ -64,7 +64,7 @@ for(i in missingValueIndices) {
 }
 sum(is.na(activityDataset))
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
-plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Dates (October to November 2012)", ylab="Number of steps", lwd=4, col="red")
+plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Dates", ylab="Number of steps", lwd=4, col="red")
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
