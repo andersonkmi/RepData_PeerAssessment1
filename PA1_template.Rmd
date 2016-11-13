@@ -22,8 +22,9 @@ activityDataset$date <- as.Date(activityDataset$date, "%Y-%m-%d")
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
 plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Dates", ylab="Number of steps", lwd=4, col="green")
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum))
-mean(totalStepsPerDay$x, na.rm=TRUE)
-median(totalStepsPerDay$x, na.rm=TRUE)
+names(totalStepsPerDay) <- c("date", "totalSteps")
+mean(totalStepsPerDay$totalSteps, na.rm=TRUE)
+median(totalStepsPerDay$totalSteps, na.rm=TRUE)
 ```
 
 
@@ -40,8 +41,9 @@ plot(avgTotalStepsPerInterval, type="l", main="Average Steps Taken at 5 minute I
 
 Finds out which interval has the maximum average value
 ```{r, echo=TRUE}
-maxAvgIndex <- which.max(avgTotalStepsPerInterval$x)
-avgTotalStepsPerInterval[maxAvgIndex,]$Group.1
+names(avgTotalStepsPerInterval) <- c("interval", "avgSteps")
+maxAvgIndex <- which.max(avgTotalStepsPerInterval$avgSteps)
+avgTotalStepsPerInterval[maxAvgIndex,]$interval
 ```
 
 ## Imputing missing values
@@ -60,7 +62,7 @@ Devise a strategy for filling in all of the missing values in the dataset.
 ```{r, echo=TRUE}
 missingValueIndices <- which(is.na(activityDataset))
 for(i in missingValueIndices) {
-    activityDataset$steps[i] = avgTotalStepsPerInterval[avgTotalStepsPerInterval$Group.1 == activityDataset[i, 3], 2]
+    activityDataset$steps[i] = avgTotalStepsPerInterval[avgTotalStepsPerInterval$interval == activityDataset[i, 3], 2]
 }
 sum(is.na(activityDataset))
 totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
