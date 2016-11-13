@@ -1,6 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 Loading a few libraries:
-```{r, echo = TRUE}
+```{r,echo = TRUE}
 library(plyr)
 library(dplyr)
 library(ggplot2)
@@ -45,7 +45,26 @@ avgTotalStepsPerInterval[maxAvgIndex,]$Group.1
 ```
 
 ## Imputing missing values
+1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with 𝙽𝙰s)
+2. Devise a strategy for filling in all of the missing values in the dataset.
+3. Create a new dataset that is equal to the original dataset but with the missing data filled
+4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
 
+Calculate and report the total number of NA values:
+```{r, echo=TRUE}
+missingValsQty <- sum(is.na(activityDataset))
+missingValsQty
+```
 
+Devise a strategy for filling in all of the missing values in the dataset.
+```{r, echo=TRUE}
+missingValueIndices <- which(is.na(activityDataset))
+for(i in missingValueIndices) {
+    activityDataset$steps[i] = avgTotalStepsPerInterval[avgTotalStepsPerInterval$Group.1 == activityDataset[i, 3], 2]
+}
+sum(is.na(activityDataset))
+totalStepsPerDay <- with(activityDataset, aggregate(steps, by = list(date), sum, na.rm=TRUE))
+plot(totalStepsPerDay, type="h", main="Histogram of steps taken each day", xlab="Dates (October to November 2012)", ylab="Number of steps", lwd=4, col="red")
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
