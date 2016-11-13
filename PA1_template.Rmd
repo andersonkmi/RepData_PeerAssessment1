@@ -1,9 +1,9 @@
 # Reproducible Research: Peer Assessment 1
 Loading a few libraries:
-```{r,echo = TRUE}
+```{r,echo = TRUE, message=FALSE}
 library(plyr)
 library(dplyr)
-library(ggplot2)
+library(lattice)
 library(data.table)
 ```
 
@@ -76,6 +76,20 @@ Create the factor levels:
 ```{r, echo=TRUE}
 days <- weekdays(activityDataset$date)
 activityDataset$day_type <- ifelse(days == "Saturday" | days == "Sunday", "weekend", "weekday")
-``avgTotalStepsPerIntervalDayType <- with(activityDataset, aggregate(steps, by = list(interval, day_type), mean))
+```
+Calculdate the aggregation:
+```{r, echo=TRUE}
+avgTotalStepsPerIntervalDayType <- with(activityDataset, aggregate(steps, by = list(interval, day_type), mean))
+names(avgTotalStepsPerIntervalDayType) <- c("interval","day_type","steps")
+avgWeekend <- subset(avgTotalStepsPerIntervalDayType, day_type == "weekend")
+avgWeekend <- subset(avgWeekend, select = -c(day_type))
+avgWeekday <- subset(avgTotalStepsPerIntervalDayType, day_type == "weekday")
+avgWeekday <- subset(avgWeekday, select = -c(day_type))
+```
 
-`
+Plot the time series:
+```{r, echo=TRUE, fig.height=8, fig.width=7}
+par(mfrow = c(2, 1), mar = c(4, 4, 1, 1), oma = c(0, 0, 0, 0))
+plot(avgWeekend$interval, avgWeekend$steps, type="l", xlab = "Interval", ylab = "Steps", main="Weekend", col= "blue")
+plot(avgWeekday$interval, avgWeekday$steps, type="l", xlab = "Interval", ylab = "Steps", main="Weekday", col="red")
+```
